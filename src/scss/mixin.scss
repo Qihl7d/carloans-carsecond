@@ -1,0 +1,43 @@
+.noscroll,
+.noscroll body {
+    overflow: hidden;
+}
+
+.noscroll body {
+    position: relative;
+}
+
+.prompt-text {
+    padding: $form-padding-top 0 $form-padding-bottom $primary-padding-bottom;
+    padding-left: 0.3rem;
+    font-size: $middle-font-size;
+}
+
+.login-button {
+    margin-top: 0.43rem;
+}
+
+.sms-code {
+    height: 1rem;
+    width: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background-color: $bg-color;
+    font-size: $small-font-size;
+    color: #999;
+}
+
+.able-activity {
+    background-color: #ffefea;
+    color: #ff6633
+}
+
+.mt20 {
+    margin-top: 0.2rem;
+}
+
+.label-fs {
+    font-size: $middle-font-size;
+    color: $form-label-color;
+}

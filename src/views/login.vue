@@ -24,6 +24,7 @@
       </div>
       <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isLoginDisable}" :disabled="!isLoginDisable">立即登录</button>
     </form>
+    <p class="p-findpwd"><router-link class="link-findpwd" to="/findpwd">忘记密码找回</router-link></p>
   </div>
 </template>
 
@@ -61,5 +62,15 @@
   @import "../scss/var";
   .login-container {
     overflow: hidden;
+    .p-findpwd {
+      display: flex;
+      justify-content: center;
+      margin-top: 6rem;
+      .link-findpwd {
+        color: #333;
+        font-size: $middle-font-size;
+        text-decoration: none;
+      }
+    }
   }
 </style>

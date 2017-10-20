@@ -9,7 +9,7 @@
     <transition name="list-fade">
       <div id="mySelect" class="select-wrap" v-if="isShow">
         <p class="title">
-          <span class="remove" @click="isShow=false"></span>
+          <span class="remove" @click.stop="hiddenSelect"></span>
           {{props.title}}
         </p>
         <p class="area" v-if="props.selectType === 'area'">

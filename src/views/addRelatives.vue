@@ -21,7 +21,8 @@
           <label class="label">详细地址</label>
           <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写直系亲属关系详细地址信息" v-model.lazy="myForm.mobile" @keyup.prevent="formatMobile($event)"/>
         </div>
-        <button type="submit" class='primary-button top'>保存</button>
+        <!-- <button type="submit" class='primary-button top'>保存</button> -->
+        <router-link to="/infolayout/otherInfo" type="submit" class='primary-button login-button mb60 btn-line-none'>保存</router-link>
       </form>
     </section>
   </div>
@@ -136,5 +137,8 @@ export default {
 }
 .mb600 {
   margin-bottom: 6rem;
+}
+.btn-line-none {
+  text-decoration: none;
 }
 </style>

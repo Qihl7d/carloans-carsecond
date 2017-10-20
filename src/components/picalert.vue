@@ -2,20 +2,20 @@
   <div class="pic-alert" v-if="isShow">
     <div class='alert-cover' @click.prevent="cancel"></div>
     <div class="common-bounced sendnum alert">
-    <div class="title text-center">图形验证码</div>
-		<div class="text-center send-input">
-			<span class="name">
-			  <input type="text" name="email" placeholder="请填写图形验证码" class="fs32" v-model="captchaCode">
-				<img :src="picCodePath" @click.prevent="refreshCode" >
-			</span>
-		</div>
-    <slot name="btu-group">
-      <div class="btn text-center btn-group">
-			  <button class="cancel" @click.prevent="cancel">取消</button>
-			  <button class="confirm" @click.prevent.stop="confirm">确定</button>
-		  </div>
-    </slot>
-	</div>
+      <div class="title text-center">图形验证码</div>
+      <div class="text-center send-input">
+        <span class="name">
+          <input type="text" name="email" placeholder="请填写图形验证码" class="fs32" v-model="captchaCode">
+          <img :src="picCodePath" @click.prevent="refreshCode" >
+        </span>
+      </div>
+      <slot name="btu-group">
+        <div class="btn text-center btn-group">
+          <button class="cancel" @click.prevent="cancel">取消</button>
+          <button class="confirm" @click.prevent.stop="confirm">确定</button>
+        </div>
+      </slot>
+	  </div>
   </div>
 </template>
 

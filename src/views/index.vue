@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <p class="mt20">既然喜爱“贷”，何必等“贷”</p>
+    <p class="mt200">既然喜爱“贷”，何必等“贷”</p>
     <p>创富租赁联手天猫为您提供</p>
     <div class="btn-box">
       <router-link to="/login" class="primary-button btn-css">立刻体验</router-link>
@@ -28,12 +28,15 @@ export default {
     font-size: $middle-font-size;
     text-align: center;
   }
+  .mt200 {
+    margin-top: 4rem;
+  }
   .btn-box {
     display: flex;
     flex-direction: column;
     .btn-css {
-      text-decoration: none;
-      margin-top: 2rem;
+      text-decoration: none; 
+      margin-top: 6rem;
     }
   }
 }

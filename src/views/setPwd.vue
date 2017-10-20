@@ -8,7 +8,8 @@
         <label class="label">设置密码</label>
         <input ref="mobileInput" class="value" type='password' placeholder="请输入登录密码" v-model.lazy="myForm.password"/>
       </div>
-      <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" :disabled="!isNextDisable">保存</button>
+      <!-- <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" :disabled="!isNextDisable">保存</button> -->
+      <router-link to="/login" type="submit" class='primary-button login-button btn-line-none' >保存</router-link>
     </form>
   </div>
 </template>
@@ -25,3 +26,11 @@
     }
   }
 </script>
+
+<style scoped>
+
+/* 暂用 */
+.btn-line-none {
+  text-decoration: none;
+}
+</style>

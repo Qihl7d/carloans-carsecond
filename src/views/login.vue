@@ -18,11 +18,10 @@
         <input class="value" type='tel' placeholder="请输入您的验证码" v-model="myForm.verificationCode"/>
         <button class='sms-code' :disabled="!isSendDisable" :class="{'able-activity': isSendDisable}" @click.prevent='sendCode'>{{smsText}}</button>
       </div>
-      <div class="form-filed">
-        <label class="label">设置密码</label>
-        <input ref="mobileInput" class="value" type='tel' placeholder="请输入登入密码" v-model.lazy="myForm.password"/>
-      </div>
-      <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isLoginDisable}" :disabled="!isLoginDisable">立即登录</button>
+      <!-- 原先的写法 -->
+      <!-- <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isLoginDisable}" :disabled="!isLoginDisable">立即登录</button> -->
+
+      <router-link to="/infolayout/personalInfo" type="submit" class='primary-button login-button btn-line-none'>立即登录</router-link>
     </form>
     <p class="p-findpwd"><router-link class="link-findpwd" to="/findpwd">忘记密码找回</router-link></p>
   </div>
@@ -62,6 +61,11 @@
   @import "../scss/var";
   .login-container {
     overflow: hidden;
+    .form-wrap {
+      .btn-line-none {
+        text-decoration: none;
+      }
+    }
     .p-findpwd {
       display: flex;
       justify-content: center;

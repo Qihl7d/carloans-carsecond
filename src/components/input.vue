@@ -1,13 +1,16 @@
 <template>
   <div class="form-filed">
     <label class="label">{{props.label}}</label>
-    <input class="value"
+    <input class="value" 
            @input="changeVal($event)"
-           :max-value="props.maxValue"
+           data-vv-value-path="innerValue" 
+           v-validate="expression"
+           :data-vv-name="model"
            :type="props.type"
            :value="form[model]"
            :placeholder="props.placeholder"
     />
+    <slot name='input-slot'></slot>
     <span class="unit" v-if="props.unit">{{props.unit}}</span>
   </div>
 </template>
@@ -19,7 +22,9 @@
       return {
         form: {
           [this.model]: this.props.value || ''
-        }
+        },
+        expression: this.props.rules || {},
+        custom: 'amount'
       }
     },
     props: ['props', 'model'],
@@ -32,42 +37,14 @@
           this.form[this.model] = value
           // this.validInput(event.target.value)
           this.$emit('myInput', {[this.model]: event.target.value})
+          this.$validator.validateAll().then((result) => {
+            console.log(`Validation Result: ${result}`)
+            console.log(this.$validator)
+          })
         }, 300)
-      },
-      validInput (val) {
-        for (let item in this.props.rules) {
-          switch (item) {
-            case 'required':
-              this.isRequired(val, this.props.rules[item])
-              break
-            case 'number':
-              this.isNumber(val, this.props.rules[item])
-              break
-            case 'max':
-              this.isMax(val, this.props.rules[item])
-              break
-          }
-        }
-      },
-      isRequired (val, obj) {
-        if (!val || (val && val.toString().trim() === '')) {
-          console.log(obj.message)
-          return {isValid: false, message: obj.message}
-        }
-      },
-      isNumber (val, obj) {
-        const reg = new RegExp('^[0-9]*$')
-        if (!reg.test(val)) {
-          console.log('num' + obj.message)
-          return {isValid: false, message: obj.message}
-        }
-      },
-      isMax (val, obj) {
-        if (obj && obj.value && val > obj.value) {
-          console.log(obj.message)
-          return {isValid: false, message: obj.message}
-        }
       }
+    },
+    created () {
     }
   }
 </script>

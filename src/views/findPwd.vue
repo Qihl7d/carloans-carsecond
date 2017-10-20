@@ -13,7 +13,7 @@
         <input class="value" type='tel' placeholder="请输入您的验证码" v-model="myForm.verificationCode"/>
         <button class='sms-code' :disabled="!isSendDisable" :class="{'able-activity': isSendDisable}" @click.prevent='sendCode'>{{smsText}}</button>
       </div>
-      <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" :disabled="!isNextDisable">下一步</button>
+      <router-link to="/setpwd" type="submit" class='primary-button login-button btn-line-none' >下一步</router-link>
     </form>
   </div>
 </template>
@@ -39,4 +39,10 @@
   .findpwd-container {
     
   }
+
+// 暂用
+.btn-line-none {
+  text-decoration: none;
+}
+
 </style>

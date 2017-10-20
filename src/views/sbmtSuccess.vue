@@ -8,7 +8,8 @@
         <p>我们会尽快审核您的贷款申请，如有疑问可联系</p>
         <p>您的信贷经理</p>
      </div>
-     <button class='primary-button login-button'>完成</button>
+     <!-- <button class='primary-button login-button'>完成</button> -->
+     <router-link to="/index" class='primary-button login-button btn-line-none'>完成</router-link>
   </div>
 </template>
 <script>
@@ -44,4 +45,9 @@
    }
 
  }
+
+//  暂用
+.btn-line-none {
+    text-decoration: none;
+  }
 </style>

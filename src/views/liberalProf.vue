@@ -2,32 +2,19 @@
   <div class="identity-valid-container">
     <section class="baseinfo-form">
       <form class='form-wrap' @submit.prevent="baseInfoSubmit()">
-        <div class="form-filed form-select">
-          <label class="label">身份证正反面</label>
-          <p class="select">
-           <span>未上传</span><img src="../assets/icon_arrow.png" alt=""/>
-          </p>
+        <div class="form-filed">
+          <label class="label">参加工作日期</label>
+          <input class="value" type='text' :class="{'text-readonly': nameIsReadOnly}" placeholder="请填写您的参加工作日期" v-model="myForm.name" :readonly='nameIsReadOnly'/>
         </div>
-        <div class="form-filed form-select">
-          <label class="label">驾驶证照片</label>
-          <p class="select">
-           <span>未上传</span><img src="../assets/icon_arrow.png" alt=""/>
-          </p>
+        <div class="form-filed on-border bottom">
+          <label class="label">职业状况</label>
+          <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写您本人的职业状况" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
         </div>
-        <div class="form-filed form-select">
-          <label class="label">结婚证照片</label>
-          <p class="select">
-           <span>未上传</span><img src="../assets/icon_arrow.png" alt=""/>
-          </p>
-        </div>
-        <div class="form-filed form-select">
-          <label class="label">其他证件照</label>
-          <p class="select">
-           <span>未上传</span><img src="../assets/icon_arrow.png" alt=""/>
-          </p>
-        </div>
-        <!-- <button type="submit" class='primary-button top'>提交</button> -->
-        <router-link to="/sbmtsuccess" type="submit" class='primary-button login-button btn-line-none'>提交</router-link>
+        <div class="form-filed">
+          <label class="label">职业备注</label>
+          <input ref="bankCardInput" class="value" type='tel' placeholder="请您写您职业的相关说明" v-model.lazy="myForm.bankCard" @keyup="formatBankCard($event)"/>
+        </div>        
+        <button type="submit" class='primary-button top'>保存并下一步</button>
       </form>
     </section>
   </div>
@@ -90,16 +77,5 @@
       font-size: $small-font-size;
       color: #999;
     }
-  }
-
-    // 暂用
-  .form-wrap .form-filed .label {
-    width: 3rem;
-  }
-  .form-wrap .form-select .select img {
-    transform: rotate(90deg);
-  }
-  .btn-line-none {
-    text-decoration: none;
   }
 </style>

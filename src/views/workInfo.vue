@@ -24,6 +24,7 @@
                     :model='companyAdrress.model'
                     :city='companyAdrress.city'
                     :area='companyAdrress.area'
+                    :areaLabel='companyAdrress.areaLabel'
         ></distpicker>
            <div class="form-filed">
              <label class="label">详细地址</label>
@@ -75,10 +76,11 @@ export default {
           },
           defaultVal: "北京市-市辖区-朝阳区"
         },
-        province: "北京市",
-        city: "市辖区",
-        area: "朝阳区",
-        model: "city"
+        // province: "北京市",
+        // city: "市辖区",
+        // area: "朝阳区",
+        model: "city",
+        areaLabel: "户籍地址"
       }
     };
   },

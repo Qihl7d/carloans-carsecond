@@ -2,13 +2,14 @@
   <div class="identity-valid-container">
     <section class="baseinfo-form">
       <form class='form-wrap' @submit.prevent="baseInfoSubmit()">
-        <distpicker :props='select.props'
-                    :province='select.province'
-                    :model='select.model'
-                    :city='select.city'
-                    :area='select.area'
+        <distpicker :props='buycarCity.props'
+                    :province='buycarCity.province'
+                    :model='buycarCity.model'
+                    :city='buycarCity.city'
+                    :area='buycarCity.area'
+                    :areaLabel='buycarCity.areaLabel'
         ></distpicker>
-        <div class="form-filed on-border">
+        <div class="form-filed">
           <label class="label">信用卡号</label>
           <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写您本人的信用卡号" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
         </div>
@@ -36,11 +37,11 @@
           <label class="label">常用邮箱</label>
           <input class="value" type='tel' placeholder="请填写您的常用邮箱地址" v-model="myForm.verificationCode"/>
         </div>
-        <div class="form-filed on-border">
+        <div class="form-filed">
           <label class="label">芝麻信用分</label>
           <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写您的芝麻信用分" v-model.lazy="myForm.mobile"/>
         </div>
-        <div class="form-filed on-border">
+        <div class="form-filed">
           <label class="label">微信号</label>
           <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写您的微信号" v-model.lazy="myForm.mobile"/>
         </div>
@@ -60,11 +61,9 @@ export default {
         name: "",
         idNo: ""
       },
-      smsText: "发送验证码",
-      isSendDisable: false,
       idNoIsReadOnly: false,
       nameIsReadOnly: false,
-      select: {
+      buycarCity: {
         props: {
           isAll: true,
           needDist: {
@@ -73,10 +72,11 @@ export default {
           },
           defaultVal: '北京市-市辖区-朝阳区'
         },
-        province: '北京市',
-        city: '市辖区',
-        area: '朝阳区',
-        model: 'city'
+        // province: '北京市',
+        // city: '市辖区',
+        // area: '朝阳区',
+        model: 'city',
+        areaLabel: '购车城市'
       }
     };
   },

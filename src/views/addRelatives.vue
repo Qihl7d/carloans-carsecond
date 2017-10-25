@@ -3,7 +3,7 @@
     <section class="baseinfo-form">
       <form class='form-wrap mb600' @submit.prevent="baseInfoSubmit()">
         <selection :props='kinship.props' :model="kinship.model"></selection>
-        <div class="form-filed on-border">
+        <div class="form-filed">
           <label class="label">直系亲属关系姓名</label>
           <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写亲属的姓名" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
         </div>
@@ -38,8 +38,6 @@ export default {
         name: "",
         idNo: ""
       },
-      smsText: "发送验证码",
-      isSendDisable: false,
       idNoIsReadOnly: false,
       nameIsReadOnly: false,
       kinship: {
@@ -75,9 +73,9 @@ export default {
           },
           defaultVal: "选择省市区"
         },
-        province: "北京市",
-        city: "市辖区",
-        area: "朝阳区",
+        // province: "北京市",
+        // city: "市辖区",
+        // area: "朝阳区",
         model: "city"
       },
     };

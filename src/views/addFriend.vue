@@ -2,8 +2,8 @@
   <div class="identity-valid-container">
     <section class="baseinfo-form">
       <form class='form-wrap mb1000' @submit.prevent="baseInfoSubmit()">
-        <selection :props='select.props' :model="select.model"></selection>
-        <div class="form-filed on-border">
+        <selection :props='relFriends.props' :model="relFriends.model"></selection>
+        <div class="form-filed">
           <label class="label">本地亲友姓名</label>
           <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写亲属姓名" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
         </div>
@@ -27,11 +27,9 @@ export default {
         name: "",
         idNo: ""
       },
-      smsText: "发送验证码",
-      isSendDisable: false,
       idNoIsReadOnly: false,
       nameIsReadOnly: false,
-      select: {
+      relFriends: {
         props: {
           title: "本地亲友关系",
           defaultVal: "朋友",

@@ -8,27 +8,43 @@
            <span>未上传</span><img src="../assets/icon_arrow.png" alt=""/>
           </p>          
         </div>
+        <!-- 上传身份证隐藏框 -->
         <div class="photo-box" v-show="photobox1">
           <img src="../assets/idcard_front.png" alt="上传身份证正面">
           <img src="../assets/idcard_back.png" alt="上传身份证反面">
         </div>
         <div class="form-filed form-select">
           <label class="label">驾驶证照片</label>
-          <p class="select">
+          <p class="select" @click="showBox('photobox2')">
            <span>已上传</span><img src="../assets/icon_arrow.png" alt=""/>
           </p>
+        </div>
+        <!-- 上传驾驶证隐藏框 -->
+        <div class="photo-box" v-show="photobox2">
+          <img src="../assets/idcard_front.png" alt="上传身份证正面">
+          <img src="../assets/idcard_back.png" alt="上传身份证反面">
         </div>
         <div class="form-filed form-select">
           <label class="label">结婚证照片</label>
-          <p class="select">
+          <p class="select" @click="showBox('photobox3')">
            <span>已上传</span><img src="../assets/icon_arrow.png" alt=""/>
           </p>
         </div>
+        <!-- 上传结婚证隐藏框 -->
+        <div class="photo-box" v-show="photobox3">
+          <img src="../assets/idcard_front.png" alt="上传身份证正面">
+          <img src="../assets/idcard_back.png" alt="上传身份证反面">
+        </div>
         <div class="form-filed form-select">
           <label class="label">其他证件照</label>
-          <p class="select">
+          <p class="select" @click="showBox('photobox4')">
            <span>已上传</span><img src="../assets/icon_arrow.png" alt=""/>
           </p>
+        </div>
+         <!-- 上传其他证件隐藏框 -->
+        <div class="photo-box" v-show="photobox4">
+          <img src="../assets/idcard_front.png" alt="上传身份证正面">
+          <img src="../assets/idcard_back.png" alt="上传身份证反面">
         </div>
         <!-- <button type="submit" class='primary-button top'>提交</button> -->
         <router-link to="/sbmtsuccess" type="submit" class='primary-button login-button btn-line-none'>提交</router-link>
@@ -53,14 +69,22 @@
           idNo: ''
         },
         photobox1: false,
+        photobox2: false,
+        photobox3: false,
+        photobox4: false,
       }
     },
     methods: {
       showBox (photobox) {
-        console.log(photobox)
         if (photobox === 'photobox1') {
           this.photobox1 = !this.photobox1
-        } 
+        } else if (photobox === 'photobox2') {
+          this.photobox2 = !this.photobox2
+        } else if (photobox === 'photobox3') {
+          this.photobox3 = !this.photobox3
+        } else if (photobox === 'photobox4') {
+          this.photobox4 = !this.photobox4
+        }
       }
     }
   }

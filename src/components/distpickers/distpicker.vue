@@ -2,7 +2,7 @@
   <div class="area-container">
     <div class="cover" @click.prevent="hiddenArea" v-if="isShow"></div>
     <div class="form-filed" @click="showSelect">
-      <label class="label">所在省份</label>
+      <label class="label">{{ areaLabel }}</label>
       <input class="select-com" :value="detailAddress" readonly='readonly'/>
       <span class="arrow-right"></span>
     </div>
@@ -81,8 +81,9 @@ export default {
     wrapper: { type: String, default: 'address' },
     addressHeader: { type: String, default: 'address-header' },
     addressContainer: { type: String, default: 'address-container' },
+    areaLabel: {type: String, default: '所在省份'},
     'props': '',
-    'model': ''
+    'model': '',
   },
   data () {
     return {
@@ -95,7 +96,7 @@ export default {
       currentProvince: this.determineType(this.province) || this.placeholders.province,
       currentCity: this.determineType(this.city) || this.placeholders.city,
       currentArea: this.determineType(this.area) || this.placeholders.area,
-      isShow: false
+      isShow: false,
     }
   },
   created () {
@@ -145,6 +146,12 @@ export default {
   },
   computed: {
     detailAddress () {
+      // 当用户没有选择省市区的时候，那么this.currentProvince的值是“省”、this.currentCity的值是“市”、this.currentArea的值是“区”
+      // 所以可以根据this.currentProvince === '省'判断用户没有选择，那么就显示默认文字
+      // 如果用户选择了那么就显示选择的省市区
+      if (this.currentProvince === '省') {
+        return `请选择${this.currentProvince}${this.currentCity}${this.currentArea}`
+      }
       return `${this.currentProvince}-${this.currentCity}-${this.currentArea}`
     }
   },

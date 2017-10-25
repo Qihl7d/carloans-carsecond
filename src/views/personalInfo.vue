@@ -15,6 +15,7 @@
                     :model='censusAddress.model'
                     :city='censusAddress.city'
                     :area='censusAddress.area'
+                    :areaLabel='censusAddress.areaLabel'
         ></distpicker>
          <div class="form-filed">
            <label class="label">详细地址</label>
@@ -37,6 +38,7 @@
                     :model='nowAddress.model'
                     :city='nowAddress.city'
                     :area='nowAddress.area'
+                    :areaLabel='nowAddress.areaLabel'
         ></distpicker>
          <div class="form-filed">
            <label class="label">详细地址</label>
@@ -66,12 +68,14 @@ export default {
             110000: "北京市",
             310000: "上海市"
           },
-          defaultVal: "选择省市区"
+          defaultVal: "请选择"
         },
-        province: "北京市",
-        city: "市辖区",
-        area: "朝阳区",
-        model: "city"
+        // 如果省市区有默认值，那么就在下面三个参数中写上默认值，如果想显示“请选择省市区”，那么就把这3个参数注释了
+        // province: "北京市",
+        // city: "市辖区",
+        // area: "朝阳区",
+        model: "city",
+        areaLabel: '户籍地址'
       },
       education: {
         props: {
@@ -85,22 +89,15 @@ export default {
           value: "value",
           isNoArrow: false,
           list: [
-            {
-              label: "博士",
-              value: 1
-            },
-            {
-              label: "硕士",
-              value: 2
-            },
-            {
-              label: "大学本科",
-              value: 3
-            },
-            {
-              label: "专科",
-              value: 4
-            }
+            {label: "研究生",value: 1},
+            {label: "大学本科",value: 2},                
+            {label: "技术学校",value: 3},
+            {label: "高中",value: 4},
+            {label: "初中",value: 5},
+            {label: "小学",value: 6},
+            {label: "文盲或半",value: 7},
+            {label: "文盲",value: 8},
+            {label: "未知",value: 9},
           ]
         },
         model: "loanPerods"
@@ -117,14 +114,9 @@ export default {
           value: "value",
           isNoArrow: false,
           list: [
-            {
-              label: "已婚",
-              value: 1
-            },
-            {
-              label: "未婚",
-              value: 2
-            }
+            {label: "已婚",value: 1},
+            {label: "未婚",value: 2},
+            {label: "其他",value: 3},
           ]
         },
         model: "loanPerods"
@@ -141,14 +133,11 @@ export default {
           value: "value",
           isNoArrow: false,
           list: [
-            {
-              label: "自有房产",
-              value: 1
-            },
-            {
-              label: "租房",
-              value: 2
-            }
+            {label: "自有房产",value: 1},
+            {label: "与家人同住",value: 2},
+            {label: "租赁",value: 3},
+            {label: "公司宿舍",value: 4},
+            {label: "其他",value: 5},
           ]
         },
         model: "loanPerods"
@@ -184,12 +173,13 @@ export default {
             110000: "北京市",
             310000: "上海市"
           },
-          defaultVal: "选择省市区"
+          defaultVal: "请选择"
         },
-        province: "北京市",
-        city: "市辖区",
-        area: "朝阳区",
-        model: "city"
+        // province: "北京市",
+        // city: "市辖区",
+        // area: "朝阳区",
+        model: "city",
+        areaLabel: '当前住址'
       },
     };
   },

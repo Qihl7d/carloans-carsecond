@@ -36,7 +36,7 @@ export default {
     flex-direction: column;
     .btn-css {
       text-decoration: none; 
-      margin-top: 6rem;
+      margin-top: 5rem;
     }
   }
 }

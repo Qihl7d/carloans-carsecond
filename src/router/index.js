@@ -7,6 +7,7 @@ Vue.use(Router)
 
 
 const Login = r => require.ensure([], () => r(require('@/views/login')), 'chunk-login')
+const PwdLogin = r => require.ensure([], () => r(require('@/views/pwdLogin')), 'chunk-pwdlogin')
 const FindPwd = r => require.ensure([], () => r(require('@/views/findPwd')), 'chunk-findpwd')
 const SetPwd = r => require.ensure([], () => r(require('@/views/setPwd')), 'chunk-setpwd')
 
@@ -23,7 +24,8 @@ const LiberalProf = r => require.ensure([], () => r(require('@/views/liberalProf
 
 const router = new Router({
     routes: [
-        { name: 'login', path: '/login', component: Login, meta: { auth: false, title: '登录' } },
+        { name: 'login', path: '/login', component: Login, meta: { auth: false, title: '输入手机号' } },
+        { name: 'pwdlogin', path: '/pwdlogin', component: PwdLogin, meta: {auth: false, title: '登录'}},
         { name: 'findpwd', path: '/findpwd', component: FindPwd, meta: { auth: false, title: '忘记密码找回' } },
         { name: 'setpwd', path: '/setpwd', component: SetPwd, meta: { auth: false, title: '忘记密码找回' } },
         { name: 'index', path: '/index', component: Index, meta: { auth: false, title: '互联网购车“秒贷”新体验' } },

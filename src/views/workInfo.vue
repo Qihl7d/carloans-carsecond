@@ -1,7 +1,7 @@
 <template>
   <div class="work-info">
     <section class="mt20">
-      <form class="form-wrap">
+      <form class="form-wrap" @submit.prevent="userLoginSubmit()">
         <div class="form-filed form-select">
            <label class="label">参加工作日期</label>
            <p class="select">
@@ -83,6 +83,15 @@ export default {
         areaLabel: "户籍地址"
       }
     };
+  },
+  methods: {
+    userLoginSubmit () {
+         this.$validator.validateAll().then((result) => {
+          const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
+          console.log(result)
+          console.log(msg)
+        })
+      }
   },
   components: {
     Distpicker

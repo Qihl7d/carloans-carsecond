@@ -2,7 +2,7 @@
   <div class="identity-valid-container">
     <div>
       <p class="accordion" :class="{'active': isShowIdCard}" @click.prevent="showIdCardUploadArea()">
-        <label>身份证正反面</label>
+        <label>身份证照上传</label>
       </p>
       <div class="idcard-area">
         <p class="front-item">
@@ -47,26 +47,32 @@
           {
             list: [],
             type: 3,
-            label: '驾驶证照片',
+            label: '工作及收入证明',
             isShow: false
           },
           {
             list: [],
             type: 3,
-            label: '结婚证照片',
+            label: '产调信息',
             isShow: false
           },
           {
             list: [],
             type: 3,
-            label: '其他证件照',
+            label: '车位销售意向书',
+            isShow: false
+          },
+          {
+            list: [],
+            type: 3,
+            label: '其他材料',
             isShow: false
           }
         ],
         protocolData: {
           items: [
             {
-              protocol: '《车秒贷产品申明》',
+              protocol: '《个人信用报告查询授权书》',
               path: ''
             }
           ]

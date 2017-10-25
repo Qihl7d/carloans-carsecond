@@ -17,6 +17,7 @@ const PersonalInfo = r => require.ensure([], () => r(require('@/views/personalIn
 const WorkInfo = r => require.ensure([], () => r(require('@/views/workInfo')), 'chunk-workinfo')
 const OtherInfo = r => require.ensure([], () => r(require('@/views/otherInfo')), 'chunk-otherinfo')
 const Upload = r => require.ensure([], () => r(require('@/views/upload')), 'chunk-upload')
+
 const SbmtSuccess = r => require.ensure([], () => r(require('@/views/sbmtSuccess')), 'chunk-sbmtsuccess')
 const AddFriend = r => require.ensure([], () => r(require('@/views/addFriend')), 'chunk-addfriend')
 const AddRelatives = r => require.ensure([], () => r(require('@/views/addRelatives')), 'chunk-addrelatives')

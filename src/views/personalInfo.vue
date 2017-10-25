@@ -1,16 +1,16 @@
 <template>
   <div class="personal-info">
     <section class="mt20">
-      <form class="form-wrap">
+      <form class="form-wrap" @submit.prevent="userLoginSubmit()">
          <div class="form-filed">
            <label class="label">姓名</label>
-           <input class="value" type="text" placeholder="请填写您的真实姓名" v-model="myForm.name"/>
+           <input class="value" type="text" placeholder="请填写您的真实姓名" name="name" v-validate="'required'" v-model="myForm.name"/>
          </div>
          <div class="form-filed">
            <label class="label">身份证号</label>
-           <input class="value" type="text" placeholder="请填写您的身份证号" v-model="myForm.idNo"/>
+           <input class="value" type="text" placeholder="请填写您的身份证号" name="idNo"  v-validate="'required'" v-model="myForm.idNo"/>
          </div>
-         <distpicker :props='censusAddress.props'
+         <distpicker name="censusAdr" v-validate="'required'" v-model="myForm.censusAdr" :props='censusAddress.props'
                     :province='censusAddress.province'
                     :model='censusAddress.model'
                     :city='censusAddress.city'
@@ -19,11 +19,11 @@
         ></distpicker>
          <div class="form-filed">
            <label class="label">详细地址</label>
-           <input class="value" type="text" placeholder="请填写详细户籍地址" v-model="myForm.adres"/>
+           <input class="value" type="text" placeholder="请填写详细户籍地址" name="censusDet" v-validate="'required'" v-model="myForm.adres"/>
          </div>
          <div class="form-filed mt20">
            <label class="label">税前月收入</label>
-           <input class="value" type="text" placeholder="请填写您税前月收入" v-model="myForm.income"/>
+           <input class="value" type="text" placeholder="请填写您税前月收入" name="income" v-validate="'required'" v-model="myForm.income"/>
            <label class="label-fs">元</label>
          </div>
          <selection :props='education.props' :model="education.model"></selection>
@@ -33,7 +33,7 @@
          <div class="form-filed mt20">
            <label class="label-fs">当前住址与户籍地址相同</label>
          </div>
-         <distpicker :props='nowAddress.props'
+         <distpicker name="nowAdr" :props='nowAddress.props'
                     :province='nowAddress.province'
                     :model='nowAddress.model'
                     :city='nowAddress.city'
@@ -42,13 +42,14 @@
         ></distpicker>
          <div class="form-filed">
            <label class="label">详细地址</label>
-           <input class="value" type="text" placeholder="请填写详细居住地址" v-model="myForm.idNo"/>
+           <input class="value" type="text" name="nowDet" v-validate="'required'" placeholder="请填写详细居住地址" v-model="myForm.nowDet"/>
          </div>
-         <router-link to="/infolayout/workInfo" type="submit" class='primary-button login-button mb60 btn-line-none'>保存并下一步</router-link>
+        <button type="submit" class='primary-button login-button' >保存并下一步</button>
       </form>
     </section>
   </div>
 </template>
+
 <script>
 import Distpicker from "../components/distpickers/distpicker";
 import Selection from "../components/selection";
@@ -58,8 +59,11 @@ export default {
       myForm: {
         name: "",
         idNo: "",
-        adres: "",
-        income: ""
+        censusAdr: "",
+        censusDet: "",
+        income: "",
+        nowAdr: "",
+        nowDet: ""
       },
       censusAddress: {
         props: {
@@ -75,7 +79,7 @@ export default {
         // city: "市辖区",
         // area: "朝阳区",
         model: "city",
-        areaLabel: '户籍地址'
+        areaLabel: "户籍地址"
       },
       education: {
         props: {
@@ -89,15 +93,15 @@ export default {
           value: "value",
           isNoArrow: false,
           list: [
-            {label: "研究生",value: 1},
-            {label: "大学本科",value: 2},                
-            {label: "技术学校",value: 3},
-            {label: "高中",value: 4},
-            {label: "初中",value: 5},
-            {label: "小学",value: 6},
-            {label: "文盲或半",value: 7},
-            {label: "文盲",value: 8},
-            {label: "未知",value: 9},
+            { label: "研究生", value: 1 },
+            { label: "大学本科", value: 2 },
+            { label: "技术学校", value: 3 },
+            { label: "高中", value: 4 },
+            { label: "初中", value: 5 },
+            { label: "小学", value: 6 },
+            { label: "文盲或半", value: 7 },
+            { label: "文盲", value: 8 },
+            { label: "未知", value: 9 }
           ]
         },
         model: "loanPerods"
@@ -114,9 +118,9 @@ export default {
           value: "value",
           isNoArrow: false,
           list: [
-            {label: "已婚",value: 1},
-            {label: "未婚",value: 2},
-            {label: "其他",value: 3},
+            { label: "已婚", value: 1 },
+            { label: "未婚", value: 2 },
+            { label: "其他", value: 3 }
           ]
         },
         model: "loanPerods"
@@ -133,11 +137,11 @@ export default {
           value: "value",
           isNoArrow: false,
           list: [
-            {label: "自有房产",value: 1},
-            {label: "与家人同住",value: 2},
-            {label: "租赁",value: 3},
-            {label: "公司宿舍",value: 4},
-            {label: "其他",value: 5},
+            { label: "自有房产", value: 1 },
+            { label: "与家人同住", value: 2 },
+            { label: "租赁", value: 3 },
+            { label: "公司宿舍", value: 4 },
+            { label: "其他", value: 5 }
           ]
         },
         model: "loanPerods"
@@ -179,9 +183,23 @@ export default {
         // city: "市辖区",
         // area: "朝阳区",
         model: "city",
-        areaLabel: '当前住址'
-      },
+        areaLabel: "当前住址"
+      }
     };
+  },
+  created() {
+      if(this.censusAdr=='请选择省市区'){
+        console.log(2222);
+      }
+  },
+  methods: {
+    userLoginSubmit () {
+         this.$validator.validateAll().then((result) => {
+          const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
+          console.log(result)
+          console.log(msg)
+        })
+      }
   },
   components: {
     Distpicker,

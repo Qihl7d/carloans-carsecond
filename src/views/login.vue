@@ -49,7 +49,7 @@ export default {
     },
     userLoginSubmit() {
       this.$router.push({
-        path: 'pwdLogin'
+        path: 'pwdlogin'
       })
     }
   },

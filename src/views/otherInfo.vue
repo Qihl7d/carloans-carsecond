@@ -9,14 +9,8 @@
                     :area='buycarCity.area'
                     :areaLabel='buycarCity.areaLabel'
         ></distpicker>
-        <div class="form-filed">
-          <label class="label">信用卡号</label>
-          <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写您本人的信用卡号" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
-        </div>
-        <div class="form-filed bottom">
-          <label class="label">预留手机号</label>
-          <input ref="bankCardInput" class="value" type='tel' placeholder="请您写信用卡的预留手机号" v-model.lazy="myForm.bankCard" @keyup="formatBankCard($event)"/>
-        </div>
+        <my-input :props='creditCardNum.props' :model="creditCardNum.model"></my-input>  
+        <my-input :props='reservePhone.props' :model='reservePhone.model'></my-input>
         <div class="form-filed">
           <label class="label">直系亲属</label>
           <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写您的直系亲属" v-model.lazy="myForm.mobile" @keyup.prevent="formatMobile($event)"/>
@@ -33,20 +27,10 @@
             <span class="arrow-right"></span>
           </router-link>
         </div>
-        <div class="form-filed">
-          <label class="label">常用邮箱</label>
-          <input class="value" type='tel' placeholder="请填写您的常用邮箱地址" v-model="myForm.verificationCode"/>
-        </div>
-        <div class="form-filed">
-          <label class="label">芝麻信用分</label>
-          <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写您的芝麻信用分" v-model.lazy="myForm.mobile"/>
-        </div>
-        <div class="form-filed">
-          <label class="label">微信号</label>
-          <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写您的微信号" v-model.lazy="myForm.mobile"/>
-        </div>
-        <!-- <button type="submit" class='primary-button top'>保存并下一步</button> -->
-        <router-link to="/infolayout/upload" type="submit" class='primary-button login-button mb60 btn-line-none'>保存并下一步</router-link>
+        <my-input :props='oftenEmail.props' :model='oftenEmail.model'></my-input>
+        <my-input :props='sesameScore.props' :model='sesameScore.model'></my-input>
+        <my-input :props='wechatNum.props' :model='wechatNum.model'></my-input>
+        <button type="submit" class='primary-button top'>保存并下一步</button>
       </form>
     </section>
   </div>
@@ -54,6 +38,7 @@
 
 <script>
 import Distpicker from "../components/distpickers/distpicker";
+import MyInput from "../components/input";
 export default {
   data() {
     return {
@@ -77,17 +62,88 @@ export default {
         // area: '朝阳区',
         model: 'city',
         areaLabel: '购车城市'
-      }
+      },
+      creditCardNum: {
+          props: {
+            label: '信用卡号',
+            type: 'text',
+            placeholder: '请填写您本人的信用卡号',
+            isBorder: true,
+            isBottom: false,
+            value: '',
+            rules: {
+              required: true
+            }
+          },
+          model: 'creditCardNum'
+        },
+        reservePhone: {
+          props: {
+            label: '预留手机号',
+            type: 'text',
+            placeholder: '请填写信用卡的预留手机号',
+            isBorder: true,
+            isBottom: true,
+            value: '',
+            rules: {
+              required: true
+            }
+          },
+          model: 'reservePhone'
+        },
+        oftenEmail: {
+          props: {
+            label: '常用邮箱',
+            type: 'text',
+            placeholder: '请填写您的常用邮箱地址',
+            isBorder: true,
+            isBottom: false,
+            value: '',
+            rules: {
+              required: true
+            }
+          },
+          model: 'oftenEmail'
+        },
+        sesameScore: {
+          props: {
+            label: '芝麻信用分',
+            type: 'text',
+            placeholder: '请填写您的芝麻信用分',
+            isBorder: true,
+            isBottom: false,
+            value: '',
+            rules: {
+              required: true
+            }
+          },
+          model: 'sesameScore'
+        },
+        wechatNum: {
+          props: {
+            label: '微信号',
+            type: 'text',
+            placeholder: '请填写您的微信号（选填）',
+            isBorder: true,
+            isBottom: false,
+            value: '',
+            rules: {
+              required: true
+            }
+          },
+          model: 'wechatNum'
+        },
     };
   },
   methods: {
-    sendCode() {},
-    formatBankCard() {},
-    baseInfoSubmit() {},
+    baseInfoSubmit() {
+    
+    },
     formatMobile() {}
   },
   components: {
-    Distpicker
+    Distpicker,
+    MyInput
   }
 };
 </script>

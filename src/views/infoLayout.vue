@@ -13,9 +13,10 @@ export default {
   data () {
     return {
       routerNameIndex: {
-        personalInfo: 0,
-        workInfo: 1,
-        otherInfo: 2,
+        // 注意：这里路由的名字全部用小写
+        personalinfo: 0,
+        workinfo: 1,
+        otherinfo: 2,
         upload: 3
       }
     }
@@ -39,9 +40,6 @@ export default {
 </script>
 
 <style scoped>
-/* 暂用 */
-.mb20 {
-  margin-bottom: 0.2rem;
-}
+
 </style>
 

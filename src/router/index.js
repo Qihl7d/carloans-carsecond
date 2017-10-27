@@ -24,6 +24,7 @@ const AddRelatives = r => require.ensure([], () => r(require('@/views/addRelativ
 const LiberalProf = r => require.ensure([], () => r(require('@/views/liberalProf')), 'chunk-liberalProf')
 
 const router = new Router({
+    mode: 'history',
     routes: [
         { name: 'login', path: '/login', component: Login, meta: { auth: false, title: '输入手机号' } },
         { name: 'pwdlogin', path: '/pwdlogin', component: PwdLogin, meta: {auth: false, title: '登录'}},

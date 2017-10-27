@@ -1,5 +1,5 @@
 <template>
-  <div class="form-filed">
+  <div class="form-filed" :class="{'bottom': props.isBottom}">
     <label class="label">{{props.label}}</label>
     <input class="value" 
            @input="changeVal($event)"
@@ -33,18 +33,25 @@
         // 输入时就修改 editor 设置 300ms 间隔防止卡顿
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
-          let value = event.target.value
-          this.form[this.model] = value
-          // this.validInput(event.target.value)
+          this.form[this.model] = event.target.value
           this.$emit('myInput', {[this.model]: event.target.value})
-          this.$validator.validateAll().then((result) => {
-            console.log(`Validation Result: ${result}`)
-            console.log(this.$validator)
-          })
+          this.emitValidate()
         }, 300)
+      },
+      emitValidate () {
+        this.$validator.validate(this.model, this.form[this.model]).then((result) => {
+          const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
+          // this.$store.commit('getValidatorMsg', {[this.model]: {msg, isValid: result}})
+        })
       }
     },
     created () {
+      setTimeout(() => {
+        this.emitValidate()
+      }, 500)
+    },
+    destroyed () {
+      this.eventBus.$off('input/validate')
     }
   }
 </script>

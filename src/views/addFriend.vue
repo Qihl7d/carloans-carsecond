@@ -2,17 +2,10 @@
   <div class="identity-valid-container">
     <section class="baseinfo-form">
       <form class='form-wrap mb1000' @submit.prevent="baseInfoSubmit()">
-        <selection :props='relFriends.props' :model="relFriends.model"></selection>
-        <div class="form-filed">
-          <label class="label">本地亲友姓名</label>
-          <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写亲属姓名" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
-        </div>
-        <div class="form-filed">
-          <label class="label">本地亲友手机</label>
-          <input ref="bankCardInput" class="value" type='tel' placeholder="请您写亲属的手机号" v-model.lazy="myForm.bankCard" @keyup="formatBankCard($event)"/>
-        </div>        
-        <!-- <button type="submit" class='primary-button top'>保存</button> -->
-        <router-link to="/infolayout/otherInfo" type="submit" class='primary-button login-button mb60 btn-line-none'>保存</router-link>
+        <selection :props='relFriends.props' :model="relFriends.model"></selection>        
+        <my-input :props='localFRName.props' :model='localFRName.model'></my-input> 
+        <my-input :props='localFRMobile.props' :model='localFRMobile.model'></my-input>       
+        <button type="submit" class='primary-button top'>保存</button>
       </form>
     </section>
   </div>
@@ -20,6 +13,7 @@
 
 <script>
 import Selection from "../components/selection";
+import MyInput from "../components/input";
 export default {
   data() {
     return {
@@ -52,11 +46,40 @@ export default {
           ]
         },
         model: "loanPerods"
+      },
+      localFRName: {
+        props: {
+          label: "本地亲友姓名",
+          type: "text",
+          placeholder: "请填写亲属的姓名",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "localFRName"
+      },
+      localFRMobile: {
+        props: {
+          label: "本地亲友手机",
+          type: "text",
+          placeholder: "请填写亲属的手机号",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "localFRMobile"
       }
     };
   },
   components: {
-    Selection
+    Selection,
+    MyInput
   },
   methods: {
     sendCode() {},

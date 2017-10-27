@@ -2,14 +2,8 @@
   <div class="personal-info">
     <section class="mt20">
       <form class="form-wrap" @submit.prevent="userLoginSubmit()">
-         <div class="form-filed">
-           <label class="label">姓名</label>
-           <input class="value" type="text" placeholder="请填写您的真实姓名" name="name" v-validate="'required'" v-model="myForm.name"/>
-         </div>
-         <div class="form-filed">
-           <label class="label">身份证号</label>
-           <input class="value" type="text" placeholder="请填写您的身份证号" name="idNo"  v-validate="'required'" v-model="myForm.idNo"/>
-         </div>
+         <my-input :props='name.props' :model='name.model'></my-input>
+         <my-input :props='idNo.props' :model='idNo.model'></my-input>
          <distpicker name="censusAdr" v-validate="'required'" v-model="myForm.censusAdr" :props='censusAddress.props'
                     :province='censusAddress.province'
                     :model='censusAddress.model'
@@ -17,22 +11,13 @@
                     :area='censusAddress.area'
                     :areaLabel='censusAddress.areaLabel'
         ></distpicker>
-         <div class="form-filed">
-           <label class="label">详细地址</label>
-           <input class="value" type="text" placeholder="请填写详细户籍地址" name="censusDet" v-validate="'required'" v-model="myForm.adres"/>
-         </div>
-         <div class="form-filed mt20">
-           <label class="label">税前月收入</label>
-           <input class="value" type="text" placeholder="请填写您税前月收入" name="income" v-validate="'required'" v-model="myForm.income"/>
-           <label class="label-fs">元</label>
-         </div>
+         <my-input :props='censusDet.props' :model='censusDet.model'></my-input>
+         <my-input :props='income.props' :model='income.model'></my-input>
          <selection :props='education.props' :model="education.model"></selection>
          <selection :props='marriage.props' :model="marriage.model"></selection>
          <selection :props='housing.props' :model="housing.model"></selection>
          <selection :props='mortgage.props' :model="mortgage.model"></selection>
-         <div class="form-filed mt20">
-           <label class="label-fs">当前住址与户籍地址相同</label>
-         </div>
+         <switch-button></switch-button>
          <distpicker name="nowAdr" :props='nowAddress.props'
                     :province='nowAddress.province'
                     :model='nowAddress.model'
@@ -40,10 +25,7 @@
                     :area='nowAddress.area'
                     :areaLabel='nowAddress.areaLabel'
         ></distpicker>
-         <div class="form-filed">
-           <label class="label">详细地址</label>
-           <input class="value" type="text" name="nowDet" v-validate="'required'" placeholder="请填写详细居住地址" v-model="myForm.nowDet"/>
-         </div>
+        <my-input :props='nowDet.props' :model='nowDet.model'></my-input>
         <button type="submit" class='primary-button login-button' >保存并下一步</button>
       </form>
     </section>
@@ -53,6 +35,8 @@
 <script>
 import Distpicker from "../components/distpickers/distpicker";
 import Selection from "../components/selection";
+import switchButton from "../components/switch";
+import MyInput from "../components/input";
 export default {
   data() {
     return {
@@ -64,6 +48,34 @@ export default {
         income: "",
         nowAdr: "",
         nowDet: ""
+      },
+      name: {
+        props: {
+          label: "姓名",
+          type: "text",
+          placeholder: "请填写您的真实姓名",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "name"
+      },
+      idNo: {
+        props: {
+          label: "身份证号",
+          type: "text",
+          placeholder: "请填写您身份证号码",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "idNo"
       },
       censusAddress: {
         props: {
@@ -80,6 +92,34 @@ export default {
         // area: "朝阳区",
         model: "city",
         areaLabel: "户籍地址"
+      },
+      censusDet: {
+        props: {
+          label: "详细地址",
+          type: "text",
+          placeholder: "请填写详细户籍地址",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "censusDet"
+      },
+      income: {
+        props: {
+          label: "税前月收入",
+          type: "text",
+          placeholder: "请填写您税前月收入",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "income"
       },
       education: {
         props: {
@@ -184,26 +224,45 @@ export default {
         // area: "朝阳区",
         model: "city",
         areaLabel: "当前住址"
-      }
+      },
+      nowDet: {
+        props: {
+          label: "详细地址",
+          type: "text",
+          placeholder: "请填写详细居住地址",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "nowDet"
+      },
     };
   },
   created() {
-      if(this.censusAdr=='请选择省市区'){
-        console.log(2222);
-      }
+    if (this.censusAdr == "请选择省市区") {
+      console.log(2222);
+    }
   },
   methods: {
-    userLoginSubmit () {
-         this.$validator.validateAll().then((result) => {
-          const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
-          console.log(result)
-          console.log(msg)
-        })
-      }
+    userLoginSubmit() {
+      this.$validator.validateAll().then(result => {
+        const { msg } =
+          this.$validator.errors.items.length > 0
+            ? this.$validator.errors.items[0]
+            : "";
+        console.log(result);
+        console.log(msg);
+      });
+    }
   },
   components: {
     Distpicker,
-    Selection
+    Selection,
+    switchButton,
+    MyInput
   }
 };
 </script>

@@ -3,26 +3,16 @@
     <section class="baseinfo-form">
       <form class='form-wrap mb600' @submit.prevent="baseInfoSubmit()">
         <selection :props='kinship.props' :model="kinship.model"></selection>
-        <div class="form-filed">
-          <label class="label">直系亲属关系姓名</label>
-          <input class="value" :class="{'text-readonly': idNoIsReadOnly}" type='text' placeholder="请填写亲属的姓名" v-model="myForm.idNo" :readonly='idNoIsReadOnly'/>
-        </div>
-        <div class="form-filed bottom">
-          <label class="label">直系亲属关系手机</label>
-          <input ref="bankCardInput" class="value" type='tel' placeholder="请您写亲属的手机号" v-model.lazy="myForm.bankCard" @keyup="formatBankCard($event)"/>
-        </div>
+        <my-input :props='kinsName.props' :model='kinsName.model'></my-input>
+        <my-input :props='kinsMobile.props' :model='kinsMobile.model'></my-input>
         <distpicker :props='kinsfolkAddress.props'
                     :province='kinsfolkAddress.province'
                     :model='kinsfolkAddress.model'
                     :city='kinsfolkAddress.city'
                     :area='kinsfolkAddress.area'
         ></distpicker>
-         <div class="form-filed">
-          <label class="label">详细地址</label>
-          <input ref="bankMobileInput" class="value" type='tel' placeholder="请填写直系亲属关系详细地址信息" v-model.lazy="myForm.mobile" @keyup.prevent="formatMobile($event)"/>
-        </div>
-        <!-- <button type="submit" class='primary-button top'>保存</button> -->
-        <router-link to="/infolayout/otherInfo" type="submit" class='primary-button login-button mb60 btn-line-none'>保存</router-link>
+         <my-input :props='kinsAddressDet.props' :model='kinsAddressDet.model'></my-input>
+        <button type="submit" class='primary-button top'>保存</button>
       </form>
     </section>
   </div>
@@ -31,6 +21,7 @@
 <script>
 import Distpicker from "../components/distpickers/distpicker";
 import Selection from "../components/selection";
+import MyInput from "../components/input";
 export default {
   data() {
     return {
@@ -40,6 +31,34 @@ export default {
       },
       idNoIsReadOnly: false,
       nameIsReadOnly: false,
+      kinsName: {
+        props: {
+          label: "直系亲属姓名",
+          type: "text",
+          placeholder: "请填写您本人的信用卡号",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "kinsName"
+      },
+      kinsMobile: {
+        props: {
+          label: "信用卡号",
+          type: "text",
+          placeholder: "请填写您本人的信用卡号",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "kinsMobile"
+      },
       kinship: {
         props: {
           title: "直系亲属关系",
@@ -78,17 +97,30 @@ export default {
         // area: "朝阳区",
         model: "city"
       },
+      kinsAddressDet: {
+        props: {
+          label: "详细地址",
+          type: "text",
+          placeholder: "请填写直系亲属详细地址信息",
+          isBorder: true,
+          isBottom: false,
+          value: "",
+          rules: {
+            required: true
+          }
+        },
+        model: "kinsAddressDet"
+      }
     };
   },
   methods: {
-    sendCode() {},
     formatBankCard() {},
-    baseInfoSubmit() {},
-    formatMobile() {}
+    baseInfoSubmit() {}
   },
   components: {
     Distpicker,
-    Selection
+    Selection,
+    MyInput
   }
 };
 </script>

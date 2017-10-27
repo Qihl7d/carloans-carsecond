@@ -1,43 +1,55 @@
 .noscroll,
 .noscroll body {
-    overflow: hidden;
+  overflow: hidden;
 }
-
 .noscroll body {
-    position: relative;
+  position: relative;
 }
 
 .prompt-text {
-    padding: $form-padding-top 0 $form-padding-bottom $primary-padding-bottom;
-    padding-left: 0.3rem;
-    font-size: $middle-font-size;
+  padding: $form-padding-top 0 $form-padding-bottom $primary-padding-bottom;
+  padding-left: 0.3rem;
+  font-size: $middle-font-size;
 }
 
 .login-button {
-    margin-top: 0.43rem;
+  margin-top: 0.43rem;
 }
 
 .sms-code {
-    height: 1rem;
-    width: 2rem;
-    position: absolute;
-    top: 0;
-    right: 0px;
-    background-color: $bg-color;
-    font-size: $small-font-size;
-    color: #999;
+  height: 1rem;
+  width: 2rem;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  background-color: $bg-color;
+  font-size: $small-font-size;
+  color: #999;
 }
 
 .able-activity {
-    background-color: #ffefea;
-    color: #ff6633
+  background-color: #ffefea;
+  color: #ff6633
 }
-
-.mt20 {
-    margin-top: 0.2rem;
+.login{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-
-.label-fs {
-    font-size: $middle-font-size;
-    color: $form-label-color;
+.login-bg{
+  width: 100%;
+  height: 100vh;
+  background:url(assets/login_bg.jpg) no-repeat center;
+  background-size:cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -99;
+  transform: scale(1.03);
+  transition:all 1s;
+}
+.login-logo{
+  width: 2.55rem;
+  height: 0.51rem;
+  margin: 0.7rem auto;
 }

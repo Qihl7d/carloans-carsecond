@@ -50,7 +50,7 @@
       },
       label: {
         type: String,
-        default: '车位地址与居住地址相同'
+        default: '当前住址与户籍地址相同'
       }
     },
     computed: {

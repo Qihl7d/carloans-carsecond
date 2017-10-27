@@ -1,108 +1,193 @@
 <template>
-  <div class="login-container">
-    <p class="prompt-text">请先用您的手机号登录</p>
-    <form class='form-wrap' @submit.prevent="userLoginSubmit()">
+  <div class="login-container login">
+    <img src="../assets/login_logo.png" alt="复星金服" class="login-logo"/>
+    <form class='form-wrap'>
       <!-- 拦截回车事件  -->
       <button></button>
       <div class="form-filed">
         <label class="label">手机号</label>
-        <input ref="mobileInput" class="value" name="mobile" v-validate="'required|phone'" type='tel' placeholder="请输入手机号" v-model.lazy="myForm.mobile" @keyup.prevent="formatMobile($event)"/>
+        <span class="number">{{phonenum()}}</span>
       </div>
-      <div class="form-filed">
-        <label class="label">密码</label>
-        <input class="value" type='password' name="password" v-validate="'required'"  placeholder="请输入登入密码" v-model.lazy="myForm.password"/>
+      <div class="show">
+        <sms-verification
+          class="smsvfn"
+          :is-send-disable='smsVer.isSendDisable'
+          :props="smsVer.props" 
+          :model="smsVer.model" v-if="!show">
+        </sms-verification>
+        <div class="form-filed pl30">
+          <label class="label">{{show ? '密码' : '设置密码'}}</label>
+          <input ref="mobileInput"  id="password" class="value" placeholder="请填写登录密码" v-model.lazy="myForm.password"/>
+          <img src="../assets/eye.png"  alt="eye" class="eye" @click="changeSeen" v-if="!seen">
+          <img src="../assets/open.png"  alt="eye" class="eye" @click="changeSeen" v-else>
+        </div>
+        <router-link class="find-pass" :to="'findpwd'">忘记密码</router-link>
+        <div class="prompt" v-if="!show">8-10位字母、数字、符号两种或以上组合</div>
+        <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" @click="login">立即登录</button>
+        <my-protocol :items='items' :bool='bool' :protocolChecked='protocolChecked' class="fscolor" v-if="!show"></my-protocol>
       </div>
-      <div class="form-filed">
-        <label class="label">验证码</label>
-        <input class="value" type='text' placeholder="请输入您的验证码" v-model="myForm.verificationCode"/>
-        <button class='sms-code' :disabled="!isSendDisable" :class="{'able-activity': isSendDisable}" @click.prevent='sendCode'>{{smsText}}</button>
-      </div>
-      <!-- 原先的写法 -->
-      <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isLoginDisable}">立即登录</button>
-
-      <!-- <router-link to="/infolayout/personalInfo" type="submit" class='primary-button login-button btn-line-none'>立即登录</router-link> -->
     </form>
-    <p class="p-findpwd"><router-link class="link-findpwd" to="/findpwd">忘记密码找回</router-link></p>
+    <div class="login-bg"></div>
   </div>
 </template>
 
 <script>
-// import { setCaretPosition } from '../utils/util'
+  import MyProtocol from '../components/protocol'
+  import SmsVerification from '../components/smsverification.vue'
+  import smsCodeMixin from './_mixin/smsCodeMixin'
+  import {getStore} from '../utils/storage'
   export default {
+    mixins: [smsCodeMixin],
     data () {
       return {
-        isSendDisable: false,
-        isLoginDisable: false,
-        url: '',
         myForm: {
-          mobile: '',
-          verificationCode: '',
           password: ''
         },
-        smsText: '发送验证码'
+        protocolChecked: '1',
+        seen: true,
+        show: true,
+        isNextDisable: false,
+        smsText: '',
+        bool: false,
+        items: [
+          {
+            path: '',
+            protocol: '《个人信用报告查询授权书》'
+          }
+        ],
+        smsVer: {
+          isSendDisable: true,
+          props: {
+            label: '验证码',
+            type: 'tel',
+            placeholder: '请输入短信验证码',
+            value: '',
+            isBorder: false,
+            rules: {
+              required: true
+            }
+          },
+          model: 'mobileCode'
+        },
+        phonenum: function () {
+          const mobile = this.getStore('mobile')
+          return mobile
+        }
       }
     },
     methods: {
-      // setCaretPosition,
-      // formatMobile (event) {
-      //   const nodeInput = this.$refs.mobileInput
-      //   let position = nodeInput.selectionStart
-      //   let startLen = event.target.value.length
-      //   let value = event.target.value.replace(/\D/g, '')
-      //   if (value.length > 11) {
-      //     value = value.substring(0, 11)
-      //   }
-      //   if (value.length === 11) {
-      //     value = value.replace(/\B(?=(?:\d{4})+$)/g, ' ')
-      //   }
-      //   if (startLen - value.length > 0) {
-      //     position = position - (startLen - value.length - 1)
-      //   } else {
-      //     position = position + Math.abs(startLen - value.length)
-      //   }
-      //   setTimeout(() => {
-      //     this.setCaretPosition(nodeInput, position)
-      //   }, 1)
-      //   nodeInput.value = value
-      //   this.myForm.mobile = value
-      // },
-      sendCode () {
+      getStore,
+      changeSeen () {
+        this.seen = !this.seen
+        const inputType = this.seen ? 'text' : 'password'
+        $('#password').attr('type', inputType)
       },
-      userLoginSubmit () {
-         this.$validator.validate('mobile', this.myForm.mobile).then((result) => {
-          const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
-          console.log(msg)
-        })
-        this.$validator.validate('password', this.myForm.password).then((result) => {
-          const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
-          console.log(msg)
+      login () {
+        const mobile = this.getStore('mobile').replace(/\D/g, '')
+        const mobileCode = this.show ? '' : this.mobileCode
+        const password = this.myForm.password
+        const param = Object.assign({}, {mobile, password, mobileCode, step: this.show ? 2 : 3})
+        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+        this.$store.dispatch('login', {param}).then(({data, code}) => {
+          const {passCount} = data
+          if (code === 'fail' && passCount && parseInt(passCount) >= 3) {
+            this.eventBus.$emit('picAlert/show', true)
+            return
+          }
+          if (code === 'succ') {
+            this.$router.push({
+              path: redirect
+            })
+          }
         })
       }
     },
     components: {
-
+      MyProtocol,
+      SmsVerification
+    },
+    created () {
+      const mobile = this.getStore('mobile').replace(/\D/g, '')
+      const param = Object.assign({}, {mobile, step: 1})
+      console.log(mobile)
+      // const param = Object.assign(this.myForm, {mobile})
+      // console.log(param)
+      // let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+      this.$store.dispatch('login', {param}).then(({data, code}) => {
+        const {isReg} = data
+        if (code === 'suss') {
+          this.show = isReg
+        }
+      })
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  @import "../scss/var";
+<style lang="scss">
+  @import '../scss/var';
   .login-container {
-    overflow: hidden;
-    .form-wrap {
-      .btn-line-none {
-        text-decoration: none;
+    .form-wrap{
+      position: relative;
+    }
+    .pl30{
+      padding-left:$padding-left;
+      padding-right:0
+    }
+    .form-filed{
+      background-color:transparent;
+      padding-left:$padding-left;
+      margin-right: 0.3rem;
+      &::after{
+        border-bottom: 1px solid #fff;
       }
     }
-    .p-findpwd {
-      display: flex;
-      justify-content: center;
-      margin-top: 6rem;
-      .link-findpwd {
-        color: #333;
-        font-size: $middle-font-size;
-        text-decoration: none;
+    .label{
+      color:#fff !important;
+    }
+    input{
+      background-color:transparent;
+    }
+    input::-webkit-input-placeholder{
+      color: #fff;
+    } 
+    .login-button{
+      margin-top:0.65rem;
+    }
+    .prompt{
+      top:3.15rem;
+    }  
+    .find-pass{
+      font-size: 0.26rem;
+      color:#fff;
+      padding: 0.1rem 0.3rem;
+      text-decoration: none;
+      position: absolute;
+      right: 0;
+      top:2.05rem;
+    }
+    .value{
+    color:#fff;
+    }
+    .smsvfn{
+      .form-filed{
+        background-color: transparent;
+        .sms-code{
+        height: 0.65rem;
+        width: 1.6rem;
+        top: 0.18rem;
+        background: rgba(255,255,255,0.2);
+        border-radius:0.06rem;
+        color:#fff;
+        }
+      }
+    }
+    .show{
+      display:flex;
+      flex-direction:column;
+    }
+    .fscolor{
+      .protocol-label{
+        color:#fff !important;
       }
     }
   }
-</style>
+</style>S

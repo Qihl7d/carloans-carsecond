@@ -1,6 +1,7 @@
 import axios from '../utils/axios'
 
-export const userLogin = (data) => axios.post('/user/login', data)
+// 登录注册接口
+export const userLogin = (data) => axios.post('/v1/account/toLogin', data)
 
 export const userInfo = () => axios.get('/account/info')
 

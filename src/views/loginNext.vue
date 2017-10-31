@@ -18,8 +18,8 @@
         </sms-verification>
         <div class="form-filed pl30">
           <label class="label">{{show ? '密码' : '设置密码'}}</label>
-          <input ref="mobileInput"  id="password" class="value" placeholder="请填写登录密码" v-model.lazy="myForm.password"/>
-          <img src="../assets/eye.png"  alt="eye" class="eye" @click="changeSeen" v-if="!seen">
+          <input ref="mobileInput" type="password"  id="password" class="value" placeholder="请填写登录密码" v-model.lazy="myForm.password"/>
+          <img src="../assets/eye.png"  alt="eye" class="eye" @click="changeSeen" v-if="seen">
           <img src="../assets/open.png"  alt="eye" class="eye" @click="changeSeen" v-else>
         </div>
         <router-link class="find-pass" :to="'findpwd'" v-if="show">忘记密码</router-link>
@@ -86,7 +86,7 @@
       getStore,
       changeSeen () {
         this.seen = !this.seen
-        const inputType = this.seen ? 'text' : 'password'
+        const inputType = this.seen ? 'password' : 'text'
         $('#password').attr('type', inputType)
       },
       protocolChange () {},

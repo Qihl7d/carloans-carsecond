@@ -1,7 +1,8 @@
 <template>
   <div class="login-container login">
+    <pic-alert :url='url' :mobile='phonenum()' :type='methodType'></pic-alert>
     <img src="../assets/login_logo.png" alt="复星金服" class="login-logo"/>
-    <form class='form-wrap'>
+    <form class='form-wrap' @submit.prevent>
       <!-- 拦截回车事件  -->
       <button></button>
       <div class="form-filed">
@@ -21,10 +22,10 @@
           <img src="../assets/eye.png"  alt="eye" class="eye" @click="changeSeen" v-if="!seen">
           <img src="../assets/open.png"  alt="eye" class="eye" @click="changeSeen" v-else>
         </div>
-        <router-link class="find-pass" :to="'findpwd'">忘记密码</router-link>
+        <router-link class="find-pass" :to="'findpwd'" v-if="show">忘记密码</router-link>
         <div class="prompt" v-if="!show">8-10位字母、数字、符号两种或以上组合</div>
-        <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" @click="login">立即登录</button>
-        <my-protocol :items='items' :bool='bool' :protocolChecked='protocolChecked' class="fscolor" v-if="!show"></my-protocol>
+        <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" @click="loginSubmitInfo">立即登录</button>
+        <my-protocol v-on:protocolChange="protocolChange" :items='items' :bool='bool' :protocolChecked='protocolChecked' class="fscolor" v-if="!show"></my-protocol>
       </div>
     </form>
     <div class="login-bg"></div>
@@ -34,8 +35,9 @@
 <script>
   import MyProtocol from '../components/protocol'
   import SmsVerification from '../components/smsverification.vue'
-  import smsCodeMixin from './_mixin/smsCodeMixin'
+  import smsCodeMixin from './_mixin/smsCodeMixin' 
   import {getStore} from '../utils/storage'
+  import {mapGetters} from 'vuex'
   export default {
     mixins: [smsCodeMixin],
     data () {
@@ -69,11 +71,16 @@
           },
           model: 'mobileCode'
         },
-        phonenum: function () {
+        phonenum () {
           const mobile = this.getStore('mobile')
           return mobile
         }
       }
+    },
+    computed: {
+      ...mapGetters([
+        'applyEdit'
+      ])
     },
     methods: {
       getStore,
@@ -82,24 +89,32 @@
         const inputType = this.seen ? 'text' : 'password'
         $('#password').attr('type', inputType)
       },
-      login () {
+      protocolChange () {},
+      login (value = '') {
+        console.log(this.applyEdit)
         const mobile = this.getStore('mobile').replace(/\D/g, '')
-        const mobileCode = this.show ? '' : this.mobileCode
+        const mobileCode = this.show ? '' : this.applyEdit.mobileCode
+        const captcha = value
         const password = this.myForm.password
-        const param = Object.assign({}, {mobile, password, mobileCode, step: this.show ? 2 : 3})
-        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
-        this.$store.dispatch('login', {param}).then(({data, code}) => {
-          const {passCount} = data
-          if (code === 'fail' && passCount && parseInt(passCount) >= 3) {
+        const param = Object.assign({}, {mobile, password, mobileCode, captcha, step: this.show ? 2 : 3})
+
+        this.$store.dispatch('login', {param}).then(({data, code, statusCode}) => {
+          this.eventBus.$emit('picAlert/show', false)
+          if (code === 'fail' && statusCode === '0001') {
             this.eventBus.$emit('picAlert/show', true)
             return
           }
-          if (code === 'succ') {
+          if (code === 'suss') {
+            const redirect = getStore('redirect')
             this.$router.push({
               path: redirect
             })
           }
         })
+      },
+      loginSubmitInfo () {
+        this.methodType = 1
+        this.login()
       }
     },
     components: {
@@ -109,16 +124,13 @@
     created () {
       const mobile = this.getStore('mobile').replace(/\D/g, '')
       const param = Object.assign({}, {mobile, step: 1})
-      console.log(mobile)
-      // const param = Object.assign(this.myForm, {mobile})
-      // console.log(param)
-      // let redirect = decodeURIComponent(this.$route.query.redirect || '/')
       this.$store.dispatch('login', {param}).then(({data, code}) => {
         const {isReg} = data
         if (code === 'suss') {
           this.show = isReg
         }
       })
+      console.log(this.eventBus._events)
     }
   }
 </script>
@@ -190,4 +202,4 @@
       }
     }
   }
-</style>S
+</style>

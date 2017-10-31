@@ -55,7 +55,7 @@ export default {
       const mobile = this.myForm.mobile;
       setStore("mobile", mobile);
       this.$router.push({
-        path: "pwdlogin"
+        path: "loginnext"
       });
     },
     focusStatus() {

@@ -1,6 +1,6 @@
 <template>
   <div class="sms-container">
-    <sms-input :props='props' :model='model'>
+    <sms-input :props='props' :model='model' ref="smsCode">
       <button slot="input-slot" class='sms-code' 
         :disabled="!isCountDisable" 
         :class="{'able-activity': isCountDisable}" 
@@ -36,12 +36,16 @@
       model: {
         type: String,
         default: ''
+      },
+      type: {
+        type: String,
+        default: '1'
       }
     },
     methods: {
       sendCode () {
-        console.log('sendCode')
-        this.eventBus.$emit('smsverification/send')
+        const {model, form} = this.$refs.smsCode
+        this.eventBus.$emit('smsverification/send', {type: this.type, [model]: form[model]})
       },
       // 60秒倒计时
       countdown () {
@@ -65,7 +69,7 @@
     components: {
       SmsInput
     },
-    created () {
+    mounted () {
       this.eventBus.$on('smsverification/countdown', this.countdown)
     },
     destroyed () {

@@ -7,12 +7,12 @@ Vue.use(Router)
 
 
 const Login = r => require.ensure([], () => r(require('@/views/login')), 'chunk-login')
-const PwdLogin = r => require.ensure([], () => r(require('@/views/pwdLogin')), 'chunk-pwdlogin')
+const LoginNext = r => require.ensure([], () => r(require('@/views/loginNext')), 'chunk-loginnext')
 const FindPwd = r => require.ensure([], () => r(require('@/views/findPwd')), 'chunk-findpwd')
 const SetPwd = r => require.ensure([], () => r(require('@/views/setPwd')), 'chunk-setpwd')
 
 const Index = r => require.ensure([], () => r(require('@/views/index')), 'chunk-index')
-const InfoLayout = r => require.ensure([], () => r(require('@/views/infoLayout')), 'chunk-infoLayout')
+const InfoLayout = r => require.ensure([], () => r(require('@/views/infoLayout')), 'chunk-infolayout')
 const PersonalInfo = r => require.ensure([], () => r(require('@/views/personalInfo')), 'chunk-personalinfo')
 const WorkInfo = r => require.ensure([], () => r(require('@/views/workInfo')), 'chunk-workinfo')
 const OtherInfo = r => require.ensure([], () => r(require('@/views/otherInfo')), 'chunk-otherinfo')
@@ -24,10 +24,10 @@ const AddRelatives = r => require.ensure([], () => r(require('@/views/addRelativ
 const LiberalProf = r => require.ensure([], () => r(require('@/views/liberalProf')), 'chunk-liberalProf')
 
 const router = new Router({
-    mode: 'history',
+    // mode: 'history',
     routes: [
         { name: 'login', path: '/login', component: Login, meta: { auth: false, title: '输入手机号' } },
-        { name: 'pwdlogin', path: '/pwdlogin', component: PwdLogin, meta: {auth: false, title: '登录'}},
+        { name: 'loginnext', path: '/loginnext', component: LoginNext, meta: {auth: false, title: '登录'}},
         { name: 'findpwd', path: '/findpwd', component: FindPwd, meta: { auth: false, title: '忘记密码找回' } },
         { name: 'setpwd', path: '/setpwd', component: SetPwd, meta: { auth: false, title: '忘记密码找回' } },
         { name: 'index', path: '/index', component: Index, meta: { auth: false, title: '互联网购车“秒贷”新体验' } },

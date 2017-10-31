@@ -4,11 +4,14 @@
       <div class="top-bg"></div>
       <div class="content">
         <h4>互联网购车“秒贷”新体验</h4>
-        <button class="primary-button btn-radius">立刻体验</button>
+        <button class="primary-button btn-radius" @click="pushPage">立刻体验</button>
       </div>
     </section>
 
     <section class="second-screen">
+      <div class="div-down mt-25">
+        <img src="../assets/icon_down.png" alt="">
+      </div>
       <img class="chuangfu_logo" src="../assets/chuangfu_logo.png" alt="创富logo">
       <h4>创富租赁，<span>“贷”</span>你开上梦想座驾</h4>
       <p>一站式购车服务，创富为您</p>
@@ -17,6 +20,7 @@
         <li>省心</li>
         <li>省时</li>
       </ul>
+      <div class="div-down mb-25"></div>
       <div class="advantage">
         <div class="advan-top"><img src="../assets/chuang_advan.png" alt="创富优势"></div>
         <div class="advan-txt"></div>
@@ -24,6 +28,11 @@
     </section>
 
     <section class="third-screen">
+      <div class="div-down-wrap">
+        <div class="div-down mt-25">
+          <img src="../assets/icon_down.png" alt="">
+        </div>
+      </div>      
       <div class="brand-top"><img src="../assets/cooperation-brand.png" alt=""></div>
       <ul class="ul-wrap">
         <li class="li-wrap">
@@ -44,6 +53,9 @@
           </ul>   
         </li>      
       </ul>
+      <div class="div-down-wrap">
+        <div class="div-down mb-25"></div>
+      </div>      
       <div class="brand-bottom">
         <img class="slogan" src="../assets/slogan.png" alt="有梦想，别‘等待’">
         <p>拨打VIP专线，体验尊贵购车服务</p>
@@ -58,6 +70,13 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+    pushPage () {
+      this.$router.push({
+        path: '/login'
+      })
+    }
   }
 };
 </script>
@@ -65,18 +84,40 @@ export default {
 <style lang="scss" scoped>
 @import "../scss/var";
 .index {
+  // 公共
+  .mt-25 {
+    margin-top: -0.25rem;
+  }
+  .mb-25 {
+    margin-bottom: -0.25rem;
+  }
+  .div-down {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      img {
+        width: 0.23rem;
+        height: 0.13rem;
+      }
+    }
+  // 第一屏
   .first-screen {
     width: 100%;
     height: 100%;
     .top-bg {
       background: url(../assets/firstTop_bg.jpg) no-repeat center;
-      background-size: 7.5rem 8.73rem;
+      background-size: 100% 8.73rem;
       width: 100%;
       height: 8.73rem;
     }
     .content {
       background-color: #df3b3b;
-      width: 7.5rem;
+      width: 100%;
       height: 3.25rem;
       display: flex;
       flex-direction: column;
@@ -92,11 +133,12 @@ export default {
       }
     }
   }
+  // 第二屏
   .second-screen {
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;    
     .chuangfu_logo {
       margin: 0.6rem 0 0.4rem 0;
       width: 0.8rem;
@@ -163,7 +205,13 @@ export default {
       }
     }
   }
+  // 第三屏
   .third-screen {
+    .div-down-wrap {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
     background-color: #fff;
     .brand-top {
       width: 100%;

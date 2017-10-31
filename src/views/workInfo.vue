@@ -2,16 +2,16 @@
   <div class="work-info">
     <section class="mt20">
       <form class="form-wrap" @submit.prevent="userLoginSubmit()">
-        <div class="form-filed form-select">
+        <div class="form-filed form-select" style="justify-content: space-between">
            <label class="label">参加工作日期</label>
-           <p class="select">
-           <span>2017/9/9</span><img src="../assets/icon_arrow.png" alt=""/>
+           <p class="select" style="padding-right:0.3rem;">
+           <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">2017/9/9</span><span class="arrow-right" style="right:0.3rem;"></span>
            </p>
          </div>
-         <div class="form-filed form-select mt20">
+         <div class="form-filed form-select mt20" style="justify-content: space-between">
            <label class="label">职业状况</label>
-           <router-link to="/liberalprof" class="select btn-line-none c333">
-             <span>自由职业</span><img src="../assets/icon_arrow.png" alt=""/>
+           <router-link to="/liberalprof" class="select" style="text-decoration:none;padding-right: 0.3rem;">
+             <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">自由职业</span><span class="arrow-right" style="right:0.3rem;"></span>
            </router-link>
          </div>
            <my-input :props='companyName.props' :model='companyName.model'></my-input>
@@ -24,10 +24,10 @@
         ></distpicker>
            <my-input :props='companyAddressDet.props' :model='companyAddressDet.model'></my-input>
            <my-input :props='companymobile.props' :model='companymobile.model'></my-input>           
-           <div class="form-filed form-select">
+           <div class="form-filed form-select" style="justify-content: space-between">
             <label class="label">参加工作日期</label>
-            <p class="select">
-              <span>2017/9/9</span><img src="../assets/icon_arrow.png" alt=""/>
+            <p class="select" style="padding-right:0.3rem;">
+              <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">2017/9/9</span><span class="arrow-right" style="right:0.3rem;"></span>
             </p>
            </div>
            <my-input :props='station.props' :model='station.model'></my-input>

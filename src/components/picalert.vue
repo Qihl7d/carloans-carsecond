@@ -1,5 +1,5 @@
 <template>
-  <div class="pic-alert" v-if="isShow">
+  <div class="pic-alert" v-if="isShow" @touchmove.prevent>
     <div class='alert-cover' @click.prevent="cancel"></div>
     <div class="common-bounced sendnum alert">
       <div class="title text-center">图形验证码</div>
@@ -32,6 +32,14 @@
       url: {
         url: String,
         default: ''
+      },
+      mobile: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: Number,
+        default: 0
       }
     },
     methods: {
@@ -44,10 +52,10 @@
           this.eventBus.$emit('toast/show')
           return
         }
-        this.eventBus.$emit('picAlert/confirm', this.captchaCode)
+        this.eventBus.$emit('picAlert/confirm', {captchaCode: this.captchaCode, type: this.type})
       },
       refreshCode () {
-        this.picCodePath = `${this.url}/captcha/captcha?captchaId=captchaId&date=${new Date()}`
+        this.picCodePath = `${this.url}/v1/captcha/captcha?mobile=${this.mobile.replace(/\D/g, '')}&date=${new Date()}`
       },
       showPicAlert (isShow) {
         this.initData()
@@ -58,7 +66,7 @@
         this.refreshCode()
       }
     },
-    created () {
+    mounted () {
       this.refreshCode()
       this.eventBus.$on('picAlert/show', this.showPicAlert)
       this.eventBus.$on('picAlert/init', this.initData)

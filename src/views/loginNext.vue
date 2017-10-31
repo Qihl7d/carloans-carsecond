@@ -91,7 +91,7 @@
       },
       protocolChange () {},
       login (value = '') {
-        console.log(this.applyEdit)
+        console.log(this.applyEdit.mobileCode)
         const mobile = this.getStore('mobile').replace(/\D/g, '')
         const mobileCode = this.show ? '' : this.applyEdit.mobileCode
         const captcha = value

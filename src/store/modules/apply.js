@@ -1,15 +1,12 @@
 import {loanApplicationAdd, getLoanList, getLoanDetil, getLoanLastData, applyPrepayment} from '../../api/apply'
-import {setStore, getStore, removeStore} from '../../utils/storage'
+import {removeStore} from '../../utils/storage'
 import * as types from '../mutation-types'
-import {url} from '../../utils/axios'
 import {floorNum} from '../../utils/util'
 import _ from 'lodash'
 
 const state = {
   loanList: [],
   loanInfo: {
-  },
-  applyEdit: {
   },
   loanLatestData: [
   ],
@@ -19,9 +16,7 @@ const state = {
 const getters = {
   loanList: state => state.loanList,
   loanInfo: state => state.loanInfo,
-  loanLatestData: state => state.loanLatestData,
-  applyEdit: state => state.applyEdit,
-  protocolUrl: state => state.protocolUrl
+  loanLatestData: state => state.loanLatestData
 }
 
 const actions = {
@@ -95,24 +90,6 @@ const mutations = {
         item.value = state.loanInfo[modal]
       }
     })
-  },
-
-  changeApplyEdit (state, item) {
-    _.assign(state.applyEdit, item)
-    setStore('applyEdit', state.applyEdit)
-  },
-
-  getProtocolSrc (state) {
-    const type = getStore('sysSite')
-    if (type === '02') {
-      state.protocolUrl = `${url}/pdf/ytxd_xyd.pdf`
-    } else if (type === '01') {
-      if (state.applyEdit && state.applyEdit.city.indexOf('上海') >= 0) {
-        state.protocolUrl = `/static/protocol/${'shanghai'}.htm`
-      } else if (state.applyEdit && state.applyEdit.city.indexOf('北京') >= 0) {
-        state.protocolUrl = `/static/protocol/${'beijing'}.htm`
-      }
-    }
   },
 
   [types.CHANGE_APP_INFO] (state, {appInfoData}) {

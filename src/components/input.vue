@@ -2,9 +2,11 @@
   <div class="form-filed" :class="{'bottom': props.isBottom}">
     <label class="label">{{props.label}}</label>
     <input class="value" 
+           :readonly = 'props.readOnly'
            @input="changeVal($event)"
            data-vv-value-path="innerValue" 
            v-validate="expression"
+           :data-vv-as="props.label"
            :data-vv-name="model"
            :type="props.type"
            :value="form[model]"
@@ -24,7 +26,7 @@
           [this.model]: this.props.value || ''
         },
         expression: this.props.rules || {},
-        custom: 'amount'
+        timer: ''
       }
     },
     props: ['props', 'model'],
@@ -33,15 +35,16 @@
         // 输入时就修改 editor 设置 300ms 间隔防止卡顿
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
+          event.target.value = this.props.format && this.props.format(event.target.value) || event.target.value
           this.form[this.model] = event.target.value
-          this.$emit('myInput', {[this.model]: event.target.value})
+          this.$store.commit('changeApplyEdit', {[this.model]: event.target.value})
           this.emitValidate()
-        }, 300)
+        }, 10)
       },
       emitValidate () {
         this.$validator.validate(this.model, this.form[this.model]).then((result) => {
           const {msg} = this.$validator.errors.items.length > 0 ? this.$validator.errors.items[0] : ''
-          // this.$store.commit('getValidatorMsg', {[this.model]: {msg, isValid: result}})
+          this.$store.commit('getValidatorMsg', {[this.model]: {msg, isValid: result}})
         })
       }
     },

@@ -1,7 +1,6 @@
 import {myInputNoticeVal, mySelectNoticeVal, myDistChangeVal} from './monitorComsEmit'
 const components = {}
 components.myInput = require('../input.vue')
-components.myLable = require('../label.vue')
 components.mySelect = require('../selection.vue')
 components.myDistPicker = require('../distpickers/distpicker.vue')
 

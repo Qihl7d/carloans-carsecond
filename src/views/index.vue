@@ -1,5 +1,9 @@
 <template>
-  <div class="index">
+  <div class="index" style="position:relative;">
+    <div class="btn-wrap">
+      <button id="btn" class="primary-button btn-radius" @click="pushPage">立刻体验</button>
+    </div>
+
     <section class="first-screen">
       <div class="top-bg"></div>
       <div class="content">
@@ -72,11 +76,24 @@ export default {
     return {};
   },
   methods: {
-    pushPage () {
+    pushPage() {
       this.$router.push({
-        path: '/login'
-      })
+        path: "/login"
+      });
     }
+  },
+  mounted() {
+    $(window).scroll(function() {
+      var topscroll = $(window).scrollTop();
+      var topscroll = parseInt(topscroll);
+      var remtopscroll = topscroll / 100 * 2;
+      console.log(remtopscroll);
+      if (remtopscroll > 12) {
+        $(".btn-wrap").css("display", "flex");
+      } else {
+        $(".btn-wrap").css("display", "none");
+      }
+    });
   }
 };
 </script>
@@ -92,19 +109,34 @@ export default {
     margin-bottom: -0.25rem;
   }
   .div-down {
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 50%;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2;
-      img {
-        width: 0.23rem;
-        height: 0.13rem;
-      }
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    img {
+      width: 0.23rem;
+      height: 0.13rem;
     }
+  }
+  position: relative;
+  .btn-wrap {
+    position: fixed;
+    bottom: 0.3rem;
+    width: 100%;
+    height: 1.2rem;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 3;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    button {
+      border-radius: 0.5rem;
+    }
+  }
   // 第一屏
   .first-screen {
     width: 100%;
@@ -138,7 +170,7 @@ export default {
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     .chuangfu_logo {
       margin: 0.6rem 0 0.4rem 0;
       width: 0.8rem;
@@ -232,17 +264,18 @@ export default {
         ul {
           display: flex;
           flex-direction: row;
-          justify-content: space-around;         
+          justify-content: space-around;
         }
       }
     }
     .brand-bottom {
       width: 100%;
       background-color: #c21e1e;
-      display: flex;      
+      display: flex;
       flex-direction: column;
       align-items: center;
       color: #fff;
+      padding-bottom: 1.5rem;
       .slogan {
         width: 5.16rem;
         height: 0.63rem;
@@ -255,7 +288,7 @@ export default {
         font-size: 0.48rem;
         margin: 0.3rem 0 0.85rem 0;
         line-height: 1;
-      } 
+      }
       .fosun_logo {
         width: 6.75rem;
         height: 1.6rem;

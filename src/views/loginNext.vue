@@ -24,7 +24,7 @@
         </div>
         <router-link class="find-pass" :to="'findpwd'" v-if="show">忘记密码</router-link>
         <div class="prompt" v-if="!show">8-10位字母、数字、符号两种或以上组合</div>
-        <button type="submit" class='primary-button login-button' :class="{'btn-disabled': !isNextDisable}" @click="loginSubmitInfo">立即登录</button>
+        <button type="submit" class='primary-button login-button'  @click="loginSubmitInfo">立即登录</button>
         <my-protocol v-on:protocolChange="protocolChange" :items='items' :bool='bool' :protocolChecked='protocolChecked' class="fscolor" v-if="!show"></my-protocol>
       </div>
     </form>
@@ -48,7 +48,6 @@
         protocolChecked: '1',
         seen: true,
         show: true,
-        isNextDisable: false,
         smsText: '',
         bool: false,
         items: [
@@ -91,7 +90,6 @@
       },
       protocolChange () {},
       login (value = '') {
-        console.log(this.applyEdit.mobileCode)
         const mobile = this.getStore('mobile').replace(/\D/g, '')
         const mobileCode = this.show ? '' : this.applyEdit.mobileCode
         const captcha = value

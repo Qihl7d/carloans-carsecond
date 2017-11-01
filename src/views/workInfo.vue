@@ -2,7 +2,7 @@
   <div class="work-info">
     <section class="mt20">
       <form class="form-wrap" @submit.prevent="userLoginSubmit()">
-        <div class="form-filed form-select" style="justify-content: space-between">
+        <div class="form-filed form-select bottom border-top" style="justify-content: space-between">
            <label class="label">参加工作日期</label>
            <p class="select" style="padding-right:0.3rem;">
            <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">2017/9/9</span><span class="arrow-right" style="right:0.3rem;"></span>
@@ -23,7 +23,7 @@
                     :areaLabel='companyAdrress.areaLabel'
         ></distpicker>
            <my-input :props='companyAddressDet.props' :model='companyAddressDet.model'></my-input>
-           <my-input :props='companymobile.props' :model='companymobile.model'></my-input>           
+           <my-input class="bottom" :props='companymobile.props' :model='companymobile.model'></my-input>           
            <div class="form-filed form-select" style="justify-content: space-between">
             <label class="label">参加工作日期</label>
             <p class="select" style="padding-right:0.3rem;">
@@ -33,7 +33,7 @@
            <my-input :props='station.props' :model='station.model'></my-input>
            <my-input :props='witnessPartner.props' :model='witnessPartner.model'></my-input>
            <my-input :props='witnessMobile.props' :model='witnessMobile.model'></my-input>
-           <button type="submit" class='primary-button top'>保存并下一步</button>
+           <button type="submit" class='primary-button top mb60'>保存并下一步</button>
       </form>
     </section>
   </div>
@@ -121,7 +121,7 @@ export default {
       },
       witnessPartner: {
         props: {
-          label: "证明人同事",
+          label: "证明人(同事)",
           type: "text",
           placeholder: "请填写您的一位同事姓名",
           isBorder: true,

@@ -5,11 +5,9 @@
           <img src="../assets/success.png" alt=""/>
           <span>提交成功!</span>
         </div>
-        <p>我们会尽快审核您的贷款申请，如有疑问可联系</p>
-        <p>您的信贷经理</p>
+        <p>我们会尽快审核您的贷款申请，如有疑问可联系您的信贷经理</p>
      </div>
-     <!-- <button class='primary-button login-button'>完成</button> -->
-     <router-link to="/index" class='primary-button login-button btn-line-none'>完成</router-link>
+     <button class='primary-button login-button'>完成</button>
   </div>
 </template>
 <script>
@@ -29,25 +27,17 @@
      .title{
        font-size:$primary-font-size;
        display:flex;
-       align-items:center;
-       justify-content:center;
+      flex-direction: column;
        padding-bottom:0.4rem;
        img{
-         width:0.75rem;
-         height:0.64rem;
-         margin-right:0.3rem;
+         width:1.52rem;
+         height:1.52rem;
        }
      }
      p{
-       font-size:$small-font-size;
-       line-height:0.4rem;
+       font-size:0.24rem;
+       color: #999;
      }
    }
-
  }
-
-//  暂用
-.btn-line-none {
-    text-decoration: none;
-  }
 </style>

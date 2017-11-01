@@ -10,6 +10,8 @@ import user from './modules/user'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
+// env里去获取当前的环境是否需要开启严格模式
+// 在发布环境开启严格模式会造成性能上不必要的损失
 
 export default new Vuex.Store({
   actions,

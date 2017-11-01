@@ -2,7 +2,7 @@
   <div class="personal-info">
     <section class="mt20">
       <form class="form-wrap" @submit.prevent="userLoginSubmit()">
-         <my-input :props='name.props' :model='name.model'></my-input>
+         <my-input class="border-top" :props='name.props' :model='name.model'></my-input>
          <my-input :props='idNo.props' :model='idNo.model'></my-input>
          <distpicker name="censusAdr" v-validate="'required'" v-model="myForm.censusAdr" :props='censusAddress.props'
                     :province='censusAddress.province'
@@ -26,7 +26,7 @@
                     :areaLabel='nowAddress.areaLabel'
         ></distpicker>
         <my-input :props='nowDet.props' :model='nowDet.model'></my-input>
-        <button type="submit" class='primary-button login-button' >保存并下一步</button>
+        <button type="submit" class='primary-button login-button mb60' >保存并下一步</button>
       </form>
     </section>
   </div>
@@ -268,14 +268,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../scss/var.scss";
-.personal-info {
-}
-
-//  暂用
-.btn-line-none {
-  text-decoration: none;
-}
-.mb60 {
-  margin-bottom: 0.6rem;
-}
 </style>

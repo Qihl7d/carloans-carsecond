@@ -10,6 +10,9 @@ import './utils/_polyfill'
 import zh from 'vee-validate/dist/locale/zh_CN'
 import VeeValidate, {Validator} from 'vee-validate'
 import dictionary from './utils/validatorConfig'
+import Calendar from 'vue2-datepick'
+
+Vue.use(Calendar);
 
 Validator.addLocale(zh)
 

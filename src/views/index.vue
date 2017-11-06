@@ -83,9 +83,11 @@ export default {
     }
   },
   mounted() {
+    // 首页滑动距离顶部12rem的时候让按钮显示，小于12rem的时候隐藏
     $(window).scroll(function() {
       var topscroll = $(window).scrollTop();
       var topscroll = parseInt(topscroll);
+      // 把px转成rem，并转成物理像素
       var remtopscroll = topscroll / 100 * 2;
       console.log(remtopscroll);
       if (remtopscroll > 12) {

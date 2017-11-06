@@ -4,6 +4,7 @@
 export const setStore = (key, value) => {
   if (!key) return
   if (typeof value !== 'string') {
+    // JSON.stringify() 方法用于将 JavaScript 值转换为 JSON 字符串
     value = JSON.stringify(value)
   }
   window.localStorage.setItem(key, value)

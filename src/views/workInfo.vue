@@ -4,8 +4,8 @@
       <form class="form-wrap" @submit.prevent="userLoginSubmit()">
         <div class="form-filed form-select bottom border-top" style="justify-content: space-between">
            <label class="label">参加工作日期</label>
-           <p class="select" style="padding-right:0.3rem;">
-           <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">2017/9/9</span><span class="arrow-right" style="right:0.3rem;"></span>
+           <p class="select" style="padding-right:0.3rem;" @click="getWorkDate">
+           <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">{{ workDate }}</span><span class="arrow-right" style="right:0.3rem;"></span>
            </p>
          </div>
          <div class="form-filed form-select mt20" style="justify-content: space-between">
@@ -25,9 +25,9 @@
            <my-input :props='companyAddressDet.props' :model='companyAddressDet.model'></my-input>
            <my-input class="bottom" :props='companymobile.props' :model='companymobile.model'></my-input>           
            <div class="form-filed form-select" style="justify-content: space-between">
-            <label class="label">参加工作日期</label>
-            <p class="select" style="padding-right:0.3rem;">
-              <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">2017/9/9</span><span class="arrow-right" style="right:0.3rem;"></span>
+            <label class="label">入职日期</label>
+            <p class="select" style="padding-right:0.3rem;" @click="getEntryDate">
+              <span style="font-size: 0.32rem;color: #333;display:block;margin-top:0.05rem;">{{ entryDate }}</span><span class="arrow-right" style="right:0.3rem;"></span>
             </p>
            </div>
            <my-input :props='station.props' :model='station.model'></my-input>
@@ -48,6 +48,8 @@ export default {
         wkunit: "",
         wkadres: ""
       },
+      workDate: "请选择",
+      entryDate: "请选择",
       companyAdrress: {
         props: {
           isAll: true,
@@ -159,6 +161,20 @@ export default {
         console.log(result);
         console.log(msg);
       });
+    },
+    getWorkDate() {
+      this.$calendar.show({
+        onOk: workDate => {
+          this.workDate = workDate;
+        }
+      });
+    },
+    getEntryDate() {
+      this.$calendar.show({
+        onOk: entryDate => {
+          this.entryDate = entryDate;  
+        }
+      });
     }
   },
   components: {
@@ -170,5 +186,4 @@ export default {
 <style lang="scss" scoped>
 .work-info {
 }
-
 </style>
